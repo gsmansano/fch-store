@@ -1,6 +1,7 @@
 using Lw.FchStore.Api.Panel.Request.Manufacturer;
 using Lw.FchStore.Domain.Entities;
 using Lw.FchStore.Domain.Interfaces.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,6 +9,7 @@ namespace Lw.FchStore.Api.Panel.Controllers
 {
     [Route("panel/api/[controller]")]
     [ApiController]
+    [Authorize(Policy = "CanManage")]
     public class ManufacturerController : ControllerBase
     {
         private readonly IManufacturerAppServices _services;
