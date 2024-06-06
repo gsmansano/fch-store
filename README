@@ -1,0 +1,4 @@
+# IAM
+
+git remote add origin https://mansano@dev.azure.com/mansano/Fch%20Store/_git/fch-store-iam
+git push -u origin --all
