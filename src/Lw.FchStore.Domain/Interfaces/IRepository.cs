@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Lw.FchStore.Domain.Interfaces;
 
+
+// main interface with all shared functionalities.
+// specific interfaces will contain entity-specific functions.
 public interface IRepository<TEntity> : IDisposable where TEntity : class
 {
     Task<TEntity> Add(TEntity obj);

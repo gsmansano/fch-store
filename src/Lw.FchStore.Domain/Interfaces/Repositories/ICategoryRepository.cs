@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 
 namespace Lw.FchStore.Domain.Interfaces.Repositories
 {
+
+    // category repo interface.
     public interface ICategoryRepository : IRepository<Category>
     {
     }
