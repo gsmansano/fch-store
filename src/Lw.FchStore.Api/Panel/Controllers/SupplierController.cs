@@ -1,4 +1,6 @@
+using Azure.Core;
 using Lw.FchStore.Api.Panel.Request.Manufacturer;
+using Lw.FchStore.Api.Panel.Request.Supplier;
 using Lw.FchStore.Domain.Entities;
 using Lw.FchStore.Domain.Interfaces.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -39,18 +41,18 @@ namespace Lw.FchStore.Api.Panel.Controllers
 
         // POST api/<SupplierController>
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] AddManufacturerRequest value)
+        public async Task<IActionResult> Post([FromBody] AddSupplierRequest request)
         {
-            var data = await _services.Add(value.Name);
+            var data = await _services.Add(new Supplier() { Name = request.Name, IsActive = true });
 
             return Ok(data);
         }
 
         // PUT api/<SupplierController>/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, [FromBody] EditManufacturerRequest value)
+        public async Task<IActionResult> Put(int id, [FromBody] EditSupplierRequest request)
         {
-            await _services.Update(new() { SupplierId = id, Name = value.Name, IsActive = value.IsActive });
+            await _services.Update(new() { SupplierId = id, Name = request.Name, IsActive = request.IsActive });
 
             return Accepted();
         }

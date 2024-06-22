@@ -13,5 +13,6 @@ namespace Lw.FchStore.Domain.Entities
         public int ManufacturerId { get; set; }
         public string Name { get; set; }
         public bool IsActive { get; set; }
+        public DateTime CreatedAt { get; set; }
     }
 }

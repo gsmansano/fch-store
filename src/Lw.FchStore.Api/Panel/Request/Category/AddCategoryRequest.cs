@@ -2,13 +2,13 @@
 
 namespace Lw.FchStore.Api.Panel.Request.Category;
 
-public class AddCagegoryRequest
+public class AddCategoryRequest
 {
     [Required, MinLength(2), MaxLength(500)]
     public string Name { get; set; }
 }
 
-public class EditCategoryRequest : AddCagegoryRequest
+public class EditCategoryRequest : AddCategoryRequest
 {
     [Required]
     public bool IsActive { get; set; }

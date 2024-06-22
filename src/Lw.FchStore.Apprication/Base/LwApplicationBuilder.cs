@@ -13,6 +13,9 @@ namespace Lw.FchStore.Application.Builder
             services.AddInfraData(configuration);
 
             services.AddTransient<IManufacturerAppServices, ManufacturerAppServices>();
+            services.AddTransient<IUnitAppServices, UnitAppServices>();
+            services.AddTransient<ICategoryAppServices, CategoryAppServices>();
+            services.AddTransient<ISupplierAppServices, SupplierAppServices>();
         }
     }
 }

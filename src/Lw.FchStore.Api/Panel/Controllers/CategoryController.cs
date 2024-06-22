@@ -1,3 +1,4 @@
+using Lw.FchStore.Api.Panel.Request.Category;
 using Lw.FchStore.Api.Panel.Request.Manufacturer;
 using Lw.FchStore.Domain.Entities;
 using Lw.FchStore.Domain.Interfaces.Services;
@@ -26,6 +27,15 @@ namespace Lw.FchStore.Api.Panel.Controllers
             var data = await _services.GetAll();
 
             return Ok(data.ToList());
+        } 
+        
+        // GET: api/<CategoryController>
+        [HttpGet("Tree")]
+        public async Task<IActionResult> GetTree()
+        {
+            var data = await _services.GetTree();
+
+            return Ok(data.ToList());
         }
 
         // GET api/<CategoryController>/5
@@ -39,18 +49,19 @@ namespace Lw.FchStore.Api.Panel.Controllers
 
         // POST api/<CategoryController>
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] AddManufacturerRequest value)
+        public async Task<IActionResult> Post([FromBody] AddCategoryRequest request)
         {
-            var data = await _services.Add(value.Name);
+          
+            var data = await _services.Add( new Category() { Name = request.Name, IsActive = true });
 
             return Ok(data);
         }
 
         // PUT api/<CategoryController>/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, [FromBody] EditManufacturerRequest value)
+        public async Task<IActionResult> Put(int id, [FromBody] EditCategoryRequest request)
         {
-            await _services.Update(new() { CategoryId = id, Name = value.Name, IsActive = value.IsActive });
+            await _services.Update(new() { CategoryId = id, Name = request.Name, IsActive = request.IsActive });
 
             return Accepted();
         }

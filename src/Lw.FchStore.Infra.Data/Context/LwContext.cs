@@ -13,6 +13,9 @@ namespace Lw.FchStore.Infra.Data.Context
     public class LwContext : DbContext
     {
         public DbSet<Manufacturer> Manufacturer { get; set; }
+        public DbSet<Supplier> Supplier { get; set; }
+        public DbSet<Unit> Unit { get; set; }
+        public DbSet<Category> Category { get; set; }
 
         public LwContext(DbContextOptions<LwContext> options) : base(options)
         {
@@ -21,6 +24,9 @@ namespace Lw.FchStore.Infra.Data.Context
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.ApplyConfiguration(new MapManufacturer());
+            builder.ApplyConfiguration(new MapSupplier());
+            builder.ApplyConfiguration(new MapUnit());
+            builder.ApplyConfiguration(new MapCategory());
 
             base.OnModelCreating(builder);
         }

@@ -16,7 +16,7 @@ namespace Lw.FchStore.Infra.Data.Mappings
             builder.ToTable("Manufacturer");
 
             builder.Property(c => c.ManufacturerId).HasColumnType("int").HasColumnName("ManufacturerId").IsRequired();
-            builder.Property(c => c.Name).HasColumnType("varchar(500)").HasColumnName("ManufacturerName");
+            builder.Property(c => c.Name).HasColumnType("varchar(500)").HasColumnName("Name");
             builder.Property(c => c.IsActive).HasColumnType("bit").HasColumnName("IsActive");
         }
     }

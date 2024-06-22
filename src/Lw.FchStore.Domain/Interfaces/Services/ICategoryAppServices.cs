@@ -4,6 +4,6 @@ namespace Lw.FchStore.Domain.Interfaces.Services;
 
 public interface ICategoryAppServices : IAppServices<Category>
 {
-    Task<Category> Add(string name);
-    
+    Task<List<CategoryTree>> GetTree();
+
 }

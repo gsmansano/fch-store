@@ -15,6 +15,18 @@ namespace Lw.FchStore.Domain.Entities
         [Key]
         public int SupplierId{ get; set; }
         public string Name { get; set; }
+
+        public string FullAddress { get; set; }
+        public string ZipCode { get; set; }
+        public string ContactName { get; set; }
+        public int PhoneNumber { get; set; }
+        public string EmailAddress { get; set; }
+
+        public int VatNumber { get; set; }
         public bool IsActive { get; set; }
+        public DateTime CreatedAt { get; set; }
+
+
+        // telefone, email, endereco, contact name, vatnumber (implementar ao long do projeto db-backend-frontend)
     }
 }

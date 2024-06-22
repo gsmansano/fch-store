@@ -1,4 +1,6 @@
+using Azure.Core;
 using Lw.FchStore.Api.Panel.Request.Manufacturer;
+using Lw.FchStore.Api.Panel.Request.Unit;
 using Lw.FchStore.Domain.Entities;
 using Lw.FchStore.Domain.Interfaces.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -39,18 +41,19 @@ namespace Lw.FchStore.Api.Panel.Controllers
 
         // POST api/<UnitController>
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] AddManufacturerRequest value)
+        public async Task<IActionResult> Post([FromBody] AddUnitRequest request)
         {
-            var data = await _services.Add(value.Name);
+
+            var data = await _services.Add(new Unit() { Name = request.Name, IsActive = true });
 
             return Ok(data);
         }
 
         // PUT api/<UnitController>/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, [FromBody] EditManufacturerRequest value)
+        public async Task<IActionResult> Put(int id, [FromBody] EditUnitRequest request)
         {
-            await _services.Update(new() { UnitId = id, Name = value.Name, IsActive = value.IsActive });
+            await _services.Update(new() { UnitId = id, Name = request.Name, IsActive = request.IsActive });
 
             return Accepted();
         }

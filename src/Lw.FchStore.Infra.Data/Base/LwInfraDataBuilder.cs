@@ -14,6 +14,9 @@ namespace Lw.FchStore.Infra.Data.Base
             services.AddDbContext<LwContext>(p => p.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
             services.AddTransient<IManufacturerRepository, ManufacturerRepository>();
+            services.AddTransient<ISupplierRepository, SupplierRepository>();
+            services.AddTransient<IUnitRepository, UnitRepository>();
+            services.AddTransient<ICategoryRepository, CategoryRepository>();
         }
     }
 }
