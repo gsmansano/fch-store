@@ -16,6 +16,11 @@ namespace Lw.FchStore.Infra.Data.Context
         public DbSet<Supplier> Supplier { get; set; }
         public DbSet<Unit> Unit { get; set; }
         public DbSet<Category> Category { get; set; }
+        public DbSet<Client> Client { get; set; }
+        public DbSet<ClientAddress> ClientAddress { get; set; }
+        public DbSet<Order> Order { get; set; }
+        public DbSet<OrderItem> OrderItem { get; set; }
+        public DbSet<Product> Product { get; set; }
 
         public LwContext(DbContextOptions<LwContext> options) : base(options)
         {
@@ -27,6 +32,11 @@ namespace Lw.FchStore.Infra.Data.Context
             builder.ApplyConfiguration(new MapSupplier());
             builder.ApplyConfiguration(new MapUnit());
             builder.ApplyConfiguration(new MapCategory());
+            builder.ApplyConfiguration(new MapClient());
+            builder.ApplyConfiguration(new MapClientAddress());
+            builder.ApplyConfiguration(new MapOrder());
+            builder.ApplyConfiguration(new MapOrderItem());
+            builder.ApplyConfiguration(new MapProduct());
 
             base.OnModelCreating(builder);
         }

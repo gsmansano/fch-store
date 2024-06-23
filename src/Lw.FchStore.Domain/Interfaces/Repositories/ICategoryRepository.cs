@@ -12,4 +12,6 @@ namespace Lw.FchStore.Domain.Interfaces.Repositories
     public interface ICategoryRepository : IRepository<Category>
     {
     }
+
+
 }

@@ -2,7 +2,7 @@
 
 namespace Lw.FchStore.Domain.Interfaces.Services;
 
-public interface ISupplierAppServices : IAppServices<Supplier>
+public interface IOrderItemAppServices : IAppServices<OrderItem>
 {
 
 }
