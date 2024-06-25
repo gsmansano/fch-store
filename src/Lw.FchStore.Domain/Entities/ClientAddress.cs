@@ -15,10 +15,6 @@ namespace Lw.FchStore.Domain.Entities
         public string ZipCode { get; set; }
         public bool IsActive { get; set; }
         public DateTime CreatedAt { get; set; }
-
-        //campos de endereco
-
-
     }
 
 }
