@@ -62,7 +62,6 @@ namespace Lw.FchStore.Api.Panel.Controllers
         {
             await _services.Update(new() {
 
-                ClientAddressId = request.ClientAddressId,
                 ClientId = request.ClientId,
                 FullAddress = request.FullAddress,
                 City = request.City,

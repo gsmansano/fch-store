@@ -17,6 +17,5 @@ public class EditClientAddressRequest : AddClientAddressRequest
 {
     [Required]
     public bool IsActive { get; set; }
-    public int ClientAddressId { get; set; }
     public int ClientId { get; set; }
 }

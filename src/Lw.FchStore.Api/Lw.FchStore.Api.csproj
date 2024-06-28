@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Panel\Request\Client\" />
     <Folder Include="Store\Controllers\" />
     <Folder Include="Store\Request\" />
   </ItemGroup>

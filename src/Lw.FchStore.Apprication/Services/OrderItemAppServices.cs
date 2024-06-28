@@ -8,10 +8,11 @@ namespace Lw.FchStore.Application.Services;
 public class OrderItemAppServices : AppServices<OrderItem>, IOrderItemAppServices
 {
     private readonly IOrderItemRepository _repository;
-
-    public OrderItemAppServices(IOrderItemRepository repository) : base(repository)
+    private readonly IOrderRepository _orderRepository;
+    public OrderItemAppServices(IOrderItemRepository repository, IOrderRepository orderRepository) : base(repository)
     {
         _repository = repository;
+        _orderRepository = orderRepository;
     }
 
     public async Task<OrderItem> AddOrderItem(int orderId, int productId, decimal unitPrice, decimal amount)
@@ -24,7 +25,16 @@ public class OrderItemAppServices : AppServices<OrderItem>, IOrderItemAppService
             Amount = amount,
         };
 
-        return await _repository.Add(orderItem);
+        var addedOrderItem = await _repository.Add(orderItem);
+
+        var order = await _orderRepository.GetById(orderId);
+        if (order != null)
+        {
+            order.TotalValue += unitPrice * amount;
+            await _orderRepository.Update(order);
+        }
+
+        return addedOrderItem;
     }
 
 }
