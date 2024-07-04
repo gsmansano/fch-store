@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Lw.FchStore.Api.Panel.Request.OrderItem;
+namespace Lw.FchStore.Api.Store.Request.OrderItem;
 
 public class AddOrderItemRequest
 {
@@ -10,6 +10,7 @@ public class AddOrderItemRequest
     public decimal Amount { get; set; }
 
 }
+
 
 public class EditOrderItemRequest : AddOrderItemRequest
 {

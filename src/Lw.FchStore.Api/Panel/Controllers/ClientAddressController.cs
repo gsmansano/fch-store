@@ -1,5 +1,4 @@
 ﻿using Lw.FchStore.Api.Panel.Request.Category;
-using Lw.FchStore.Api.Panel.Request.ClientAddress;
 using Lw.FchStore.Domain.Entities;
 using Lw.FchStore.Domain.Interfaces.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -31,48 +30,48 @@ namespace Lw.FchStore.Api.Panel.Controllers
         }
 
         // GET api/<ClientAddressController>/5
-        [HttpGet("{id}")]
-        public async Task<IActionResult> Get(int id)
+        [HttpGet("{clientId}/{clientAddressId}")]
+        public async Task<IActionResult> Get(int clientId, int clientAddressId)
         {
-            var data = await _services.GetById(id);
+            ClientAddress data = await _services.GetById(clientId, clientAddressId);
 
             return Ok(data);
         }
 
-        // POST api/<ClientAddressController>
-        [HttpPost]
-        public async Task<IActionResult> Post([FromBody] AddClientAddressRequest request)
-        {
+        //// POST api/<ClientAddressController>
+        //[HttpPost]
+        //public async Task<IActionResult> Post([FromBody] AddClientAddressRequest request)
+        //{
 
-            var data = await _services.Add(new ClientAddress()
-            {
-                FullAddress = request.FullAddress,
-                City = request.City,
-                Country = request.Country,
-                ZipCode = request.ZipCode,
-                IsActive = true
-            });
+        //    var data = await _services.Add(new ClientAddress()
+        //    {
+        //        FullAddress = request.FullAddress,
+        //        City = request.City,
+        //        Country = request.Country,
+        //        ZipCode = request.ZipCode,
+        //        IsActive = true
+        //    });
 
-            return Ok(data);
-        }
+        //    return Ok(data);
+        //}
 
-        // PUT api/<ClientAddressController>/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, [FromBody] EditClientAddressRequest request)
-        {
-            await _services.Update(new() {
+        //// PUT api/<ClientAddressController>/5
+        //[HttpPut("{id}")]
+        //public async Task<IActionResult> Put(int id, [FromBody] EditClientAddressRequest request)
+        //{
+        //    await _services.Update(new() {
 
-                ClientId = request.ClientId,
-                FullAddress = request.FullAddress,
-                City = request.City,
-                Country = request.Country,
-                ZipCode = request.ZipCode,
-                IsActive = request.IsActive 
+        //        ClientId = request.ClientId,
+        //        FullAddress = request.FullAddress,
+        //        City = request.City,
+        //        Country = request.Country,
+        //        ZipCode = request.ZipCode,
+        //        IsActive = request.IsActive 
             
-            });
+        //    });
 
-            return Accepted();
-        }
+        //    return Accepted();
+        //}
 
         // DELETE api/<ClientAddressController>/5
         [HttpDelete("{id}")]

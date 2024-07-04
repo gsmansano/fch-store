@@ -2,6 +2,7 @@
 using Lw.FchStore.Domain.Entities;
 using Lw.FchStore.Domain.Interfaces.Repositories;
 using Lw.FchStore.Domain.Interfaces.Services;
+using System.Linq;
 
 namespace Lw.FchStore.Application.Services;
 
@@ -28,5 +29,14 @@ public class ClientAddressAppServices : AppServices<ClientAddress>, IClientAddre
         };
 
         return await _repository.Add(clientAddress);
+    }
+
+    public async Task<ClientAddress> GetById(int clientId, int clientAddressId)
+    {
+
+        var data = _repository.FirstOrDefault(p => p.ClientId == clientId && p.ClientAddressId == clientAddressId);
+
+        return data;
+
     }
 }

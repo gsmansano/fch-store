@@ -1,18 +1,17 @@
-﻿using Lw.FchStore.Api.Panel.Request.Order;
+﻿using Lw.FchStore.Api.Store.Request.Order;
 using Lw.FchStore.Domain.Entities;
 using Lw.FchStore.Domain.Interfaces.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Lw.FchStore.Api.Panel.Controllers
+namespace Lw.FchStore.Api.Store.Controllers
 {
-    [Route("panel/api/[controller]")]
+    [Route("store/api/[controller]")]
     [ApiController]
-    [Authorize(Policy = "CanManage")]
+    [Authorize]
     public class OrderController : ControllerBase
     {
-
         private readonly IOrderAppServices _services;
 
         public OrderController(IOrderAppServices services)
@@ -20,7 +19,8 @@ namespace Lw.FchStore.Api.Panel.Controllers
             _services = services;
         }
 
-        // GET: api/<OrderController>
+
+        // GET: api/<OrderItemController>
         [HttpGet]
         public async Task<IActionResult> Get()
         {
@@ -76,17 +76,47 @@ namespace Lw.FchStore.Api.Panel.Controllers
             return Ok(result);
         }
 
-        // PUT api/<OrderController>/5
+        // POST api/<OrderItemController>
+        [HttpPost]
+        public async Task<IActionResult> Post([FromBody] AddOrderRequest request)
+        {
+
+            var data = await _services.Add(new Order()
+            {
+                Status = request.Status,
+                TotalValue = request.TotalValue,
+                ClientAddressId = request.ClientAddressId,
+                PaymentId = request.PaymentId
+
+
+            });
+
+            return Ok(data);
+        }
+
+        // PUT api/<OrderItemController>/5
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(int id, [FromBody] EditOrderRequest request)
         {
             await _services.Update(new()
             {
-                Status = request.Status,
+                IsActive = request.IsActive,
+
+
             });
 
             return Accepted();
         }
+
+        // DELETE api/<OrderItemController>/5
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            await _services.Remove(id);
+
+            return Accepted();
+        }
+
 
     }
 }

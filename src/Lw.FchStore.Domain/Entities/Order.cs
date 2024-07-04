@@ -14,6 +14,10 @@ namespace Lw.FchStore.Domain.Entities
         public bool IsActive { get; set; }
         public DateTime CreatedAt { get; set; }
 
+        public Client Client { get; set; }
+        public ClientAddress Address { get; set; }
+        public ICollection<OrderItem> OrderItems { get;}
+
     }
 
 }

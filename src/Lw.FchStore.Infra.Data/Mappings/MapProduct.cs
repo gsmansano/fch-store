@@ -20,7 +20,7 @@ namespace Lw.FchStore.Infra.Data.Mappings
             builder.Property(c => c.CostPrice).HasColumnType("decimal").HasColumnName("CostPrice");
             builder.Property(c => c.SalePrice).HasColumnType("decimal").HasColumnName("SalePrice");
             builder.Property(c => c.CreatedAt).HasColumnType("datetime").HasColumnName("CreatedAt");
-            builder.Property(c => c.IsActive).HasColumnType("bool").HasColumnName("CreatedAt");
+            builder.Property(c => c.IsActive).HasColumnType("bool").HasColumnName("IsActive");
 
     }
     }

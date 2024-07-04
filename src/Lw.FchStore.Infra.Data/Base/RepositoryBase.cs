@@ -47,5 +47,8 @@ namespace Lw.FchStore.Infra.Data.Base
             Db.Dispose();
             GC.SuppressFinalize(this);
         }
+        
+        public TEntity FirstOrDefault(Func<TEntity, bool> query) => DbSet.FirstOrDefault(query);
+   
     }
 }

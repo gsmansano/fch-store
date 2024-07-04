@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Lw.FchStore.Api.Panel.Request.ClientAddress;
+namespace Lw.FchStore.Api.Store.Request.ClientAddress;
 
 public class AddClientAddressRequest
 {
@@ -10,6 +10,7 @@ public class AddClientAddressRequest
     public string City { get; set; }
     public string Country { get; set; }
     public string ZipCode { get; set; }
+
 }
 
 

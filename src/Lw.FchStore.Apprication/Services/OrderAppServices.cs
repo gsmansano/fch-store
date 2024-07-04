@@ -30,4 +30,11 @@ public class OrderAppServices : AppServices<Order>, IOrderAppServices
         return await _repository.Add(order);
     }
 
+    public async Task<Order> GetById(int id)
+    {
+        return await _repository.GetOrder(id);
+
+    }
+
+
 }

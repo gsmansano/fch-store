@@ -18,9 +18,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Panel\Request\ClientAddress\" />
     <Folder Include="Panel\Request\Client\" />
-    <Folder Include="Store\Controllers\" />
-    <Folder Include="Store\Request\" />
+    <Folder Include="Store\Request\Client\" />
   </ItemGroup>
 
 </Project>

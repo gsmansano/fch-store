@@ -22,7 +22,7 @@ namespace Lw.FchStore.Domain.Entities
         public int PhoneNumber { get; set; }
         public string EmailAddress { get; set; }
 
-        public int VatNumber { get; set; }
+        public string VatNumber { get; set; }
         public bool IsActive { get; set; }
         public DateTime CreatedAt { get; set; }
 
