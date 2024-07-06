@@ -1,10 +1,14 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Lw.FchStore.Domain.Entities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Lw.FchStore.Domain.Entities
+namespace Lw.FchStore.Domain.Responses
 {
-    public class Client
+    public class ClientDataResponse
     {
-        [Key]
         public int ClientId { get; set; }
         public string Fullname { get; set; }
         public string Email { get; set; }
@@ -15,8 +19,8 @@ namespace Lw.FchStore.Domain.Entities
         public bool IsActive { get; set; }
         public DateTime CreatedAt { get; set; }
 
-        public virtual ICollection<Order> Orders { get; set; }
-        public virtual ICollection<ClientAddress> Addresses { get; set; }
-    }
+        public List<int> Orders { get; set; }
+        public List<ClientAddress> Addresses { get; set; }
 
+    }
 }

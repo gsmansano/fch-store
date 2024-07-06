@@ -10,12 +10,36 @@ namespace Lw.FchStore.Infra.Data.Mappings
         {
             builder.ToTable("OrderItem");
 
-            builder.Property(c => c.OrderItemId).HasColumnType("int").HasColumnName("OrderItemId").IsRequired();
-            builder.Property(c => c.ProductId).HasColumnType("int").HasColumnName("ProductId").IsRequired();
-            builder.Property(c => c.UnitPrice).HasColumnType("decimal").HasColumnName("UnitPrice");
-            builder.Property(c => c.Amount).HasColumnType("decimal").HasColumnName("Amount");
+            builder.HasKey(oi => oi.OrderItemId);
 
-    }
+            builder.Property(oi => oi.OrderItemId)
+                .HasColumnType("int")
+                .HasColumnName("OrderItemId")
+                .IsRequired();
+
+            builder.Property(oi => oi.OrderId)
+                .HasColumnType("int")
+                .HasColumnName("OrderId")
+                .IsRequired();
+
+            builder.Property(oi => oi.ProductId)
+                .HasColumnType("int")
+                .HasColumnName("ProductId")
+                .IsRequired();
+
+            builder.Property(oi => oi.UnitPrice)
+                .HasColumnType("decimal(18,2)")
+                .HasColumnName("UnitPrice")
+                .IsRequired();
+
+            builder.Property(oi => oi.Amount)
+                .HasColumnType("decimal(18,3)")
+                .HasColumnName("Amount")
+                .IsRequired();
+
+            builder.HasOne<Order>(p => p.Order).WithMany(p => p.Items).HasForeignKey(p => p.OrderId);
+
+        }
     }
 
 }

@@ -20,6 +20,7 @@ namespace Lw.FchStore.Application.Builder
             services.AddTransient<IClientAddressAppServices, ClientAddressAppServices>();
             services.AddTransient<IOrderAppServices, OrderAppServices>();
             services.AddTransient<IOrderItemAppServices, OrderItemAppServices>();
+            services.AddTransient<IOrderUpdateAppServices, OrderUpdateAppServices>();
             services.AddTransient<IProductAppServices, ProductAppServices>();
 
         }

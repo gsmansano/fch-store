@@ -14,7 +14,7 @@ public class OrderAppServices : AppServices<Order>, IOrderAppServices
         _repository = repository;
     }
 
-    public async Task<Order> AddOrder(int clientId, int status, decimal totalValue, int clientAddressId, int paymentId)
+    public async Task<Order> AddOrder(int clientId, OrderStatus status, decimal totalValue, int clientAddressId, int paymentId)
     {
         var order = new Order()
         {

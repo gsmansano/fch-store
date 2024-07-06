@@ -22,6 +22,7 @@ namespace Lw.FchStore.Infra.Data.Base
             services.AddTransient<IOrderRepository, OrderRepository>();
             services.AddTransient<IOrderItemRepository, OrderItemRepository>();
             services.AddTransient<IProductRepository, ProductRepository>();
+            services.AddTransient<IOrderUpdateRepository, OrderUpdateRepository>();
 
         }
     }

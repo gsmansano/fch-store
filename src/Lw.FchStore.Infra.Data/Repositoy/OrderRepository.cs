@@ -20,7 +20,7 @@ namespace Lw.FchStore.Infra.Data.Repositoy
             return await _context.Order
            .Include(o => o.Client)
            .Include(o => o.Address)
-           .Include(o => o.OrderItems)
+           .Include(o => o.Items)
             .ThenInclude(oi => oi.Product)
            .FirstOrDefaultAsync(o => o.OrderId == id);
 

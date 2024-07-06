@@ -20,7 +20,10 @@ namespace Lw.FchStore.Api.Store.Controllers
         }
 
 
-        // GET: api/<OrderItemController>
+        // GET: api/<OrderController>
+
+        // pegar todos so do client
+
         [HttpGet]
         public async Task<IActionResult> Get()
         {
@@ -54,14 +57,14 @@ namespace Lw.FchStore.Api.Store.Controllers
                 Client = new
                 {
                     order.Client.ClientId,
-                    order.Client.Name
+                    order.Client.Fullname
                 },
                 ClientAddress = new
                 {
                     order.Address.ClientAddressId,
-                    order.Address.FullAddress
+                    order.Address.AddressLine1
                 },
-                OrderItems = order.OrderItems.Select(oi => new
+                OrderItems = order.Items.Select(oi => new
                 {
                     oi.OrderItemId,
                     Product = new
@@ -76,33 +79,31 @@ namespace Lw.FchStore.Api.Store.Controllers
             return Ok(result);
         }
 
-        // POST api/<OrderItemController>
+        // POST api/<OrderController>
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] AddOrderRequest request)
         {
 
             var data = await _services.Add(new Order()
             {
-                Status = request.Status,
-                TotalValue = request.TotalValue,
-                ClientAddressId = request.ClientAddressId,
-                PaymentId = request.PaymentId
-
+                Status = OrderStatus.Open,
+                TotalValue = 0,
 
             });
 
             return Ok(data);
         }
 
-        // PUT api/<OrderItemController>/5
+        // PUT api/<OrderController>/5
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(int id, [FromBody] EditOrderRequest request)
         {
             await _services.Update(new()
             {
-                IsActive = request.IsActive,
-
-
+                // update de pedido pode ser:
+                // add order item
+                // update order item   --> todos atualiza o total value
+                // delete order item
             });
 
             return Accepted();

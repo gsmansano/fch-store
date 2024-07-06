@@ -9,14 +9,12 @@ using System.Threading.Tasks;
 namespace Lw.FchStore.Domain.Entities
 {
 
-    // unit entity.
-    // more attributes to be added later
     public class Unit
     {
         [Key]
         public int UnitId { get; set; }
         public string Name { get; set; }
-        public string Short { get; set; } // salvar sempre em uppercase
+        public string Short { get; set; }
         public bool IsActive { get; set; }
         public DateTime CreatedAt { get; set; }
 

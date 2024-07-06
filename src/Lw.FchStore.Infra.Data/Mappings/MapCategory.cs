@@ -17,6 +17,7 @@ namespace Lw.FchStore.Infra.Data.Mappings
 
             builder.Property(c => c.CategoryId).HasColumnType("int").HasColumnName("CategoryId").IsRequired();
             builder.Property(c => c.Name).HasColumnType("varchar(500)").HasColumnName("Name");
+            builder.Property(c => c.Description).HasColumnType("varchar(500)").HasColumnName("Description");
             builder.Property(c => c.IsActive).HasColumnType("bit").HasColumnName("IsActive");
             builder.Property(c => c.ParentId).HasColumnType("int").HasColumnName("ParentId");
         }

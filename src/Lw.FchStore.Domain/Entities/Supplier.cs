@@ -8,8 +8,6 @@ using System.Threading.Tasks;
 namespace Lw.FchStore.Domain.Entities
 {
 
-    // supplier entity.
-    // more attributes to be added later
     public class Supplier
     {
         [Key]
@@ -26,7 +24,5 @@ namespace Lw.FchStore.Domain.Entities
         public bool IsActive { get; set; }
         public DateTime CreatedAt { get; set; }
 
-
-        // telefone, email, endereco, contact name, vatnumber (implementar ao long do projeto db-backend-frontend)
     }
 }

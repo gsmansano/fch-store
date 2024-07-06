@@ -54,14 +54,14 @@ namespace Lw.FchStore.Api.Panel.Controllers
                 Client = new
                 {
                     order.Client.ClientId,
-                    order.Client.Name
+                    order.Client.Fullname
                 },
                 ClientAddress = new
                 {
                     order.Address.ClientAddressId,
-                    order.Address.FullAddress
+                    order.Address.AddressLine1
                 },
-                OrderItems = order.OrderItems.Select(oi => new
+                OrderItems = order.Items.Select(oi => new
                 {
                     oi.OrderItemId,
                     Product = new

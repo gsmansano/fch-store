@@ -41,12 +41,12 @@ namespace Lw.FchStore.Api.Store.Controllers
         }
 
         // DELETE api/<ClientController>/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
-        {
-            await _services.Remove(id);
+        //[HttpDelete("{id}")]
+        //public async Task<IActionResult> Delete(int id)
+        //{
+        //    await _services.Remove(id);
 
-            return Accepted();
-        }
+        //    return Accepted();
+        //}
     }
 }

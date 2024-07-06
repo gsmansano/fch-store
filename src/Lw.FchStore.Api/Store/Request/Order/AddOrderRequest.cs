@@ -1,10 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Lw.FchStore.Domain.Entities;
+using System.ComponentModel.DataAnnotations;
 
 namespace Lw.FchStore.Api.Store.Request.Order;
 
 public class AddOrderRequest
 {
-    public int Status { get; set; }
+    public OrderStatus Status { get; set; }
     public int ClientId { get; set; }
     public decimal TotalValue { get; set; }
     public int ClientAddressId { get; set; }

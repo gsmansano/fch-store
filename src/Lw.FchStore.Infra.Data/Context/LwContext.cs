@@ -21,6 +21,7 @@ namespace Lw.FchStore.Infra.Data.Context
         public DbSet<Order> Order { get; set; }
         public DbSet<OrderItem> OrderItem { get; set; }
         public DbSet<Product> Product { get; set; }
+        public DbSet<OrderUpdate> OrderUpdate { get; set; }
 
         public LwContext(DbContextOptions<LwContext> options) : base(options)
         {
@@ -37,6 +38,7 @@ namespace Lw.FchStore.Infra.Data.Context
             builder.ApplyConfiguration(new MapOrder());
             builder.ApplyConfiguration(new MapOrderItem());
             builder.ApplyConfiguration(new MapProduct());
+            builder.ApplyConfiguration(new MapOrderUpdate());
 
             base.OnModelCreating(builder);
         }

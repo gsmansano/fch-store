@@ -10,14 +10,48 @@ namespace Lw.FchStore.Infra.Data.Mappings
         {
             builder.ToTable("Order");
 
-            builder.Property(c => c.OrderId).HasColumnType("int").HasColumnName("OrderId").IsRequired();
-            builder.Property(c => c.Status).HasColumnType("int").HasColumnName("Status").IsRequired();
-            builder.Property(c => c.ClientId).HasColumnType("int").HasColumnName("ClientId").IsRequired();
-            builder.Property(c => c.ClientAddressId).HasColumnType("int").HasColumnName("ClientAddressId").IsRequired();
-            builder.Property(c => c.PaymentId).HasColumnType("int").HasColumnName("PaymentId").IsRequired();
-            builder.Property(c => c.TotalValue).HasColumnType("decimal").HasColumnName("TotalValue");
-            builder.Property(c => c.IsActive).HasColumnType("bit").HasColumnName("IsActive");
-            builder.Property(c => c.CreatedAt).HasColumnType("datetime").HasColumnName("CreatedAt");
+            builder.HasKey(o => o.OrderId);
+
+            builder.Property(o => o.OrderId)
+                .HasColumnType("int")
+                .HasColumnName("OrderId")
+                .IsRequired();
+
+            builder.Property(o => o.Status)
+                .HasColumnType("int")
+                .HasColumnName("Status")
+                .IsRequired();
+
+            builder.Property(o => o.ClientId)
+                .HasColumnType("int")
+                .HasColumnName("ClientId")
+                .IsRequired();
+
+            builder.Property(o => o.TotalValue)
+                .HasColumnType("decimal(18,2)")
+                .HasColumnName("TotalValue")
+                .IsRequired();
+
+            builder.Property(o => o.ClientAddressId)
+                .HasColumnType("int")
+                .HasColumnName("ClientAddressId")
+                .IsRequired(false);
+
+            builder.Property(o => o.PaymentId)
+                .HasColumnType("int")
+                .HasColumnName("PaymentId")
+                .IsRequired(false);
+
+            builder.Property(o => o.CreatedAt)
+                .HasColumnType("datetime")
+                .HasColumnName("CreatedAt")
+                .IsRequired();
+
+
+            builder.HasOne<Client>(p => p.Client).WithMany(p => p.Orders).HasForeignKey(p => p.ClientId);
+            builder.HasOne<ClientAddress>(p => p.Address).WithMany(p => p.Orders).HasForeignKey(p => p.ClientAddressId);
+            builder.HasMany<OrderItem>(p => p.Items).WithOne(p => p.Order);
+
         }
     }
 }

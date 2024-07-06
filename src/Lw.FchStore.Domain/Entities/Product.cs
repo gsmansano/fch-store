@@ -18,14 +18,6 @@ namespace Lw.FchStore.Domain.Entities
         public DateTime CreatedAt { get; set; }
         public bool IsActive { get; set; }
 
-   
-        // implementar repo, map, appservices, tabelas e controller (telas p tudo menos orderitem,)
-
-        // product - tela p criar editar remover / listar tudo
-        // order - so fazer list
-        // client - so list tb
-        // clientaddress - n faz nd kkk
-
     }
 
 }

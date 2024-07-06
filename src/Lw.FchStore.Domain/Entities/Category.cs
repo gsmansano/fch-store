@@ -9,16 +9,17 @@ using System.Threading.Tasks;
 namespace Lw.FchStore.Domain.Entities
 {
 
-    // category entity.
-    // more attributes to be added later
     public class Category
 
     {
         [Key]
         public int CategoryId { get; set; }
+        public int? ParentId { get; set; }
         public string Name { get; set; }
+        public string Description { get; set; }
+        public DateTime CreatedAt { get; set; }
         public bool IsActive { get; set; }
-        public int? ParentId { get; set; } 
+        
     }
 
     public class CategoryTree

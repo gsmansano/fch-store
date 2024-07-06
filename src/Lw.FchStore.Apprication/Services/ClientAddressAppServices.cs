@@ -20,7 +20,7 @@ public class ClientAddressAppServices : AppServices<ClientAddress>, IClientAddre
         var clientAddress = new ClientAddress()
         {
             ClientId = clientId,
-            FullAddress = fullAddress,
+            AddressLine1 = fullAddress,
             City = city,
             Country = country,
             ZipCode = zipCode,

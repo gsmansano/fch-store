@@ -10,14 +10,61 @@ namespace Lw.FchStore.Infra.Data.Mappings
         {
             builder.ToTable("ClientAddress");
 
-            builder.Property(c => c.ClientAddressId).HasColumnType("int").HasColumnName("ClientAddressId").IsRequired();
-            builder.Property(c => c.ClientId).HasColumnType("int").HasColumnName("ClientId").IsRequired();
-            builder.Property(c => c.FullAddress).HasColumnType("varchar(500)").HasColumnName("FullAddress");
-            builder.Property(c => c.City).HasColumnType("varchar(500)").HasColumnName("City");
-            builder.Property(c => c.Country).HasColumnType("varchar(500)").HasColumnName("Country");
-            builder.Property(c => c.ZipCode).HasColumnType("varchar(500)").HasColumnName("ZipCode");
-            builder.Property(c => c.IsActive).HasColumnType("bit").HasColumnName("IsActive");
-            builder.Property(c => c.CreatedAt).HasColumnType("datetime").HasColumnName("CreatedAt");
+            builder.HasKey(ca => ca.ClientAddressId);
+
+            builder.Property(ca => ca.ClientAddressId)
+                .HasColumnType("int")
+                .HasColumnName("ClientAddressId")
+                .IsRequired()
+                .ValueGeneratedOnAdd();
+
+            builder.Property(ca => ca.ClientId)
+                .HasColumnType("int")
+                .HasColumnName("ClientId")
+                .IsRequired();
+
+            builder.Property(ca => ca.AddressLine1)
+                .HasColumnType("varchar(255)")
+                .HasColumnName("AddressLine1")
+                .IsRequired();
+
+            builder.Property(ca => ca.AddressLine2)
+                .HasColumnType("varchar(255)")
+                .HasColumnName("AddressLine2")
+                .IsRequired(false);
+
+            builder.Property(ca => ca.AddressLine3)
+                .HasColumnType("varchar(255)")
+                .HasColumnName("AddressLine3")
+                .IsRequired(false);
+
+            builder.Property(ca => ca.City)
+                .HasColumnType("varchar(100)")
+                .HasColumnName("City")
+                .IsRequired();
+
+            builder.Property(ca => ca.Country)
+                .HasColumnType("varchar(100)")
+                .HasColumnName("Country")
+                .IsRequired();
+
+            builder.Property(ca => ca.ZipCode)
+                .HasColumnType("varchar(20)")
+                .HasColumnName("ZipCode")
+                .IsRequired();
+
+            builder.Property(ca => ca.IsActive)
+                .HasColumnType("bit")
+                .HasColumnName("IsActive")
+                .IsRequired();
+
+            builder.Property(ca => ca.CreatedAt)
+                .HasColumnType("datetime")
+                .HasColumnName("CreatedAt")
+                .IsRequired();
+
+
+            builder.HasOne<Client>(p => p.Client).WithMany(p => p.Addresses).HasForeignKey(p => p.ClientId);
 
         }
     }

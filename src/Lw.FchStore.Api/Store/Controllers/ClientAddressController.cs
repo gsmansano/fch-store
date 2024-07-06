@@ -44,7 +44,7 @@ namespace Lw.FchStore.Api.Store.Controllers
 
             var data = await _services.Add(new ClientAddress()
             {
-                FullAddress = request.FullAddress,
+                AddressLine1 = request.FullAddress,
                 City = request.City,
                 Country = request.Country,
                 ZipCode = request.ZipCode,
@@ -62,7 +62,7 @@ namespace Lw.FchStore.Api.Store.Controllers
             {
 
                 ClientId = request.ClientId,
-                FullAddress = request.FullAddress,
+                AddressLine1 = request.FullAddress,
                 City = request.City,
                 Country = request.Country,
                 ZipCode = request.ZipCode,

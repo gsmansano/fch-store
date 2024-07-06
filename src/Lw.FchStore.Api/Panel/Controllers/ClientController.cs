@@ -32,43 +32,38 @@ namespace Lw.FchStore.Api.Panel.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            var data = await _services.GetById(id);
-
-            return Ok(data);
-        }
-
-        // POST api/<ClientController>
-        [HttpPost]
-        public async Task<IActionResult> Post()
-        {
-
-            var data = await _services.Add(new Client()
-            {
-
-            });
+            var data = await _services.PanelGetById(id);
 
             return Ok(data);
         }
 
         // PUT api/<ClientController>/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id)
+        [HttpPut("Enable/{id}")]
+        public async Task<IActionResult> Enable(int id)
         {
-            await _services.Update(new()
-            {
 
-            });
+            var client = await _services.GetById(id);
+
+            client.IsActive = true;
+
+            await _services.Update(client);
+
+            return Accepted();
+        }
+        
+        // PUT api/<ClientController>/5
+        [HttpPut("Disable/{id}")]
+        public async Task<IActionResult> Disable(int id)
+        {
+
+            var client = await _services.GetById(id);
+
+            client.IsActive = false;
+
+            await _services.Update(client);
 
             return Accepted();
         }
 
-        // DELETE api/<ClientController>/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
-        {
-            await _services.Remove(id);
-
-            return Accepted();
-        }
     }
 }
