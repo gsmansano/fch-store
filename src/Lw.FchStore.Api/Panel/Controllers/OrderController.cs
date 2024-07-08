@@ -22,70 +22,107 @@ namespace Lw.FchStore.Api.Panel.Controllers
 
         // GET: api/<OrderController>
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
         {
             var data = await _services.GetAll();
 
-            return Ok(data.ToList());
+            var totalItems = data.Count();
+
+            var paginatedData = data.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
+
+            var paginationMetadata = new
+            {
+                totalCount = totalItems,
+                pageSize,
+                currentPage = pageNumber,
+                totalPages = (int)Math.Ceiling(totalItems / (double)pageSize)
+            };
+
+            return Ok(new { data = paginatedData, pagination = paginationMetadata });
+
         }
+
 
         // GET api/<OrderController>/5
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
 
-            var order = await _services.GetById(id);
+            var order = await _services.PanelGetOrderById(id);
 
-            if (order == null)
-            {
-                return NotFound();
-            }
+            return Ok(order);
 
-            var result = new
-            {
-                order.OrderId,
-                order.Status,
-                order.ClientId,
-                order.TotalValue,
-                order.ClientAddressId,
-                order.PaymentId,
-                order.IsActive,
-                order.CreatedAt,
-                Client = new
-                {
-                    order.Client.ClientId,
-                    order.Client.Fullname
-                },
-                ClientAddress = new
-                {
-                    order.Address.ClientAddressId,
-                    order.Address.AddressLine1
-                },
-                OrderItems = order.Items.Select(oi => new
-                {
-                    oi.OrderItemId,
-                    Product = new
-                    {
-                        oi.Product.ProductId,
-                        oi.Product.Name
-                    },
-                    oi.Amount
-                })
-            };
+        }
 
-            return Ok(result);
+        // GET api/<OrderController>/5
+        [HttpGet("{clientId}")]
+        public async Task<IActionResult> GetByClientId(int clientId)
+        {
+
+            var orders = await _services.GetByClientId(clientId);
+
+            return Ok(orders);
+
         }
 
         // PUT api/<OrderController>/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, [FromBody] EditOrderRequest request)
+        public async Task<IActionResult> PutReadyToShip(int id)
         {
-            await _services.Update(new()
-            {
-                Status = request.Status,
-            });
+
+            var order = await _services.GetById(id);
+
+            order.Status = (OrderStatus)4; // ready do ship
+
+            await _services.Update(order);
 
             return Accepted();
+
+        }
+        
+        // PUT api/<OrderController>/5
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutShipped(int id)
+        {
+
+            var order = await _services.GetById(id);
+
+            order.Status = (OrderStatus)5; // Shipped
+
+            await _services.Update(order);
+
+            return Accepted();
+
+        } 
+        
+        // PUT api/<OrderController>/5
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutCompleted(int id)
+        {
+
+            var order = await _services.GetById(id);
+
+            order.Status = (OrderStatus)7; // Completed
+
+            await _services.Update(order);
+
+            return Accepted();
+
+        }
+
+        // PUT api/<OrderController>/5
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutCanceled(int id)
+        {
+
+            var order = await _services.GetById(id);
+
+            order.Status = (OrderStatus)90; // Canceled
+
+            await _services.Update(order);
+
+            return Accepted();
+
         }
 
     }

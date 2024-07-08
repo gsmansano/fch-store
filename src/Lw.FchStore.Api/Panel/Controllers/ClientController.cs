@@ -21,11 +21,23 @@ namespace Lw.FchStore.Api.Panel.Controllers
 
         // GET: api/<ClientController>
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
         {
             var data = await _services.GetAll();
 
-            return Ok(data.ToList());
+            var totalItems = data.Count();
+
+            var paginatedData = data.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
+
+            var paginationMetadata = new
+            {
+                totalCount = totalItems,
+                pageSize,
+                currentPage = pageNumber,
+                totalPages = (int)Math.Ceiling(totalItems / (double)pageSize)
+            };
+
+            return Ok(new { data = paginatedData, pagination = paginationMetadata });
         }
 
         // GET api/<ClientController>/5

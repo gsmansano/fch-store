@@ -2,6 +2,7 @@
 using Lw.FchStore.Domain.Entities;
 using Lw.FchStore.Domain.Interfaces.Repositories;
 using Lw.FchStore.Domain.Interfaces.Services;
+using Lw.FchStore.Domain.Responses;
 
 namespace Lw.FchStore.Application.Services;
 
@@ -23,17 +24,26 @@ public class OrderAppServices : AppServices<Order>, IOrderAppServices
             TotalValue = totalValue,
             ClientAddressId = clientAddressId,
             PaymentId = paymentId,
-            IsActive = true,
             CreatedAt = DateTime.Now
         };
 
         return await _repository.Add(order);
     }
 
+    public async Task<List<OrderDetailsResponse>> GetByClientId(int clientId)
+    {
+        return await _repository.GetByClientId(clientId);
+    }
+
     public async Task<Order> GetById(int id)
     {
         return await _repository.GetOrder(id);
 
+    }
+
+    public async Task<OrderDetailsResponse> PanelGetOrderById(int orderId)
+    {
+        return await _repository.PanelGetOrderById(orderId);
     }
 
 
