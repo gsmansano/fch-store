@@ -4,6 +4,7 @@ using Lw.FchStore.Domain.Interfaces.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace Lw.FchStore.Api.Panel.Controllers
 {
@@ -14,10 +15,12 @@ namespace Lw.FchStore.Api.Panel.Controllers
     {
 
         private readonly IOrderAppServices _services;
+        private readonly IOrderUpdateAppServices _updateServices;
 
-        public OrderController(IOrderAppServices services)
+        public OrderController(IOrderAppServices services, IOrderUpdateAppServices updateServices)
         {
             _services = services;
+            _updateServices = updateServices;
         }
 
         // GET: api/<OrderController>
@@ -67,44 +70,49 @@ namespace Lw.FchStore.Api.Panel.Controllers
 
         // PUT api/<OrderController>/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutReadyToShip(int id)
+        public async Task<IActionResult> PutReadyToShip(int orderId)
         {
 
-            var order = await _services.GetById(id);
+            var order = await _services.GetById(orderId);
 
             order.Status = (OrderStatus)4; // ready do ship
 
             await _services.Update(order);
 
+            var orderUpdate = new OrderUpdate
+            {
+                OrderId = orderId,
+                UpdateTime = DateTime.UtcNow,
+                Description = $"Order updated to ready to ship at {DateTime.UtcNow:yyyy-MM-dd HH:mm:ss}",
+                Status = (OrderStatus)4,
+            };
+
+            await _updateServices.Add(orderUpdate);
+
             return Accepted();
 
         }
-        
+
         // PUT api/<OrderController>/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutShipped(int id)
+        public async Task<IActionResult> PutShipped(int orderId)
         {
 
-            var order = await _services.GetById(id);
+            var order = await _services.GetById(orderId);
 
             order.Status = (OrderStatus)5; // Shipped
 
             await _services.Update(order);
 
-            return Accepted();
+            var orderUpdate = new OrderUpdate
+            {
+                OrderId = orderId,
+                UpdateTime = DateTime.UtcNow,
+                Description = $"Order updated to shipped at {DateTime.UtcNow:yyyy-MM-dd HH:mm:ss}",
+                Status = (OrderStatus)5,
+            };
 
-        } 
-        
-        // PUT api/<OrderController>/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutCompleted(int id)
-        {
-
-            var order = await _services.GetById(id);
-
-            order.Status = (OrderStatus)7; // Completed
-
-            await _services.Update(order);
+            await _updateServices.Add(orderUpdate);
 
             return Accepted();
 
@@ -112,14 +120,49 @@ namespace Lw.FchStore.Api.Panel.Controllers
 
         // PUT api/<OrderController>/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCanceled(int id)
+        public async Task<IActionResult> PutCompleted(int orderId)
         {
 
-            var order = await _services.GetById(id);
+            var order = await _services.GetById(orderId);
+
+            order.Status = (OrderStatus)7; // Completed
+
+            await _services.Update(order);
+
+            var orderUpdate = new OrderUpdate
+            {
+                OrderId = orderId,
+                UpdateTime = DateTime.UtcNow,
+                Description = $"Order updated to completed at {DateTime.UtcNow:yyyy-MM-dd HH:mm:ss}",
+                Status = (OrderStatus)7,
+            };
+
+            await _updateServices.Add(orderUpdate);
+
+            return Accepted();
+
+        }
+
+        // PUT api/<OrderController>/5
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutCanceled(int orderId)
+        {
+
+            var order = await _services.GetById(orderId);
 
             order.Status = (OrderStatus)90; // Canceled
 
             await _services.Update(order);
+
+            var orderUpdate = new OrderUpdate
+            {
+                OrderId = orderId,
+                UpdateTime = DateTime.UtcNow,
+                Description = $"Order updated to canceled at {DateTime.UtcNow:yyyy-MM-dd HH:mm:ss}",
+                Status = (OrderStatus)90,
+            };
+
+            await _updateServices.Add(orderUpdate);
 
             return Accepted();
 

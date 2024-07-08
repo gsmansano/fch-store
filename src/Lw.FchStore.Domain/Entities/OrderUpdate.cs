@@ -13,7 +13,7 @@ namespace Lw.FchStore.Domain.Entities
         public int OrderUpdateId { get; set; }
         public int OrderId { get; set; }
         public DateTime UpdateTime { get; set; }
-        public string Description { get; set; }
+        public string? Description { get; set; }
         public OrderStatus Status { get; set; }
 
 

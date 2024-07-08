@@ -9,5 +9,6 @@ namespace Lw.FchStore.Domain.Interfaces.Services
 {
     public interface IOrderUpdateAppServices : IAppServices<OrderUpdate>
     {
+
     }
 }

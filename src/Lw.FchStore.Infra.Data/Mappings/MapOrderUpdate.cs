@@ -36,7 +36,7 @@ namespace Lw.FchStore.Infra.Data.Mappings
             builder.Property(ou => ou.Description)
                 .HasColumnType("varchar(1000)")
                 .HasColumnName("Description")
-                .IsRequired();
+                .IsRequired(false);
 
             builder.Property(ou => ou.Status)
                 .HasColumnType("int")
