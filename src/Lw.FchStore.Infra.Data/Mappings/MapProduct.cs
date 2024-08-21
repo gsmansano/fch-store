@@ -10,19 +10,64 @@ namespace Lw.FchStore.Infra.Data.Mappings
         {
             builder.ToTable("Product");
 
-            builder.Property(c => c.ProductId).HasColumnType("int").HasColumnName("ProductId").IsRequired();
-            builder.Property(c => c.CategoryId).HasColumnType("int").HasColumnName("CategoryId").IsRequired();
-            builder.Property(c => c.SupplierId).HasColumnType("int").HasColumnName("SupplierId").IsRequired();
-            builder.Property(c => c.ManufacturerId).HasColumnType("int").HasColumnName("ManufacturerId").IsRequired();
-            builder.Property(c => c.UnitId).HasColumnType("int").HasColumnName("UnitId").IsRequired();
-            builder.Property(c => c.Name).HasColumnType("string").HasColumnName("Name");
-            builder.Property(c => c.Description).HasColumnType("string").HasColumnName("Description");
-            builder.Property(c => c.CostPrice).HasColumnType("decimal").HasColumnName("CostPrice");
-            builder.Property(c => c.SalePrice).HasColumnType("decimal").HasColumnName("SalePrice");
-            builder.Property(c => c.CreatedAt).HasColumnType("datetime").HasColumnName("CreatedAt");
-            builder.Property(c => c.IsActive).HasColumnType("bool").HasColumnName("IsActive");
+            builder.HasKey(p => p.ProductId);
 
-    }
+            builder.Property(p => p.ProductId)
+                   .HasColumnType("int")
+                   .HasColumnName("ProductId")
+                   .IsRequired();
+
+            builder.Property(p => p.CategoryId)
+                   .HasColumnType("int")
+                   .HasColumnName("CategoryId")
+                   .IsRequired();
+
+            builder.Property(p => p.SupplierId)
+                   .HasColumnType("int")
+                   .HasColumnName("SupplierId")
+                   .IsRequired();
+
+            builder.Property(p => p.ManufacturerId)
+                   .HasColumnType("int")
+                   .HasColumnName("ManufacturerId")
+                   .IsRequired();
+
+            builder.Property(p => p.UnitId)
+                   .HasColumnType("int")
+                   .HasColumnName("UnitId")
+                   .IsRequired();
+
+            builder.Property(p => p.Name)
+                   .HasColumnType("varchar(255)")
+                   .HasColumnName("Name")
+                   .IsRequired()
+                   .HasMaxLength(255);
+
+            builder.Property(p => p.Description)
+                   .HasColumnType("varchar(1000)")
+                   .HasColumnName("Description")
+                   .HasMaxLength(1000);
+
+            builder.Property(p => p.CostPrice)
+                   .HasColumnType("decimal(18,2)")
+                   .HasColumnName("CostPrice")
+                   .IsRequired();
+
+            builder.Property(p => p.SalePrice)
+                   .HasColumnType("decimal(18,2)")
+                   .HasColumnName("SalePrice")
+                   .IsRequired();
+
+            builder.Property(p => p.CreatedAt)
+                   .HasColumnType("datetime")
+                   .HasColumnName("CreatedAt");
+
+            builder.Property(p => p.IsActive)
+                   .HasColumnType("bit")
+                   .HasColumnName("IsActive")
+                   .HasDefaultValue(true);
+
+        }
     }
 
 }

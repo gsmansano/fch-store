@@ -15,11 +15,33 @@ namespace Lw.FchStore.Infra.Data.Mappings
         {
             builder.ToTable("Category");
 
-            builder.Property(c => c.CategoryId).HasColumnType("int").HasColumnName("CategoryId").IsRequired();
-            builder.Property(c => c.Name).HasColumnType("varchar(500)").HasColumnName("Name");
-            builder.Property(c => c.Description).HasColumnType("varchar(500)").HasColumnName("Description");
-            builder.Property(c => c.IsActive).HasColumnType("bit").HasColumnName("IsActive");
-            builder.Property(c => c.ParentId).HasColumnType("int").HasColumnName("ParentId");
+            builder.HasKey(c => c.CategoryId);
+
+            builder.Property(c => c.CategoryId)
+                   .HasColumnType("int")
+                   .HasColumnName("CategoryId")
+                   .IsRequired();
+
+            builder.Property(c => c.Name)
+                   .HasColumnType("varchar(500)")
+                   .HasColumnName("Name")
+                   .IsRequired()
+                   .HasMaxLength(500);
+
+            builder.Property(c => c.Description)
+                   .HasColumnType("varchar(500)")
+                   .HasColumnName("Description")
+                   .HasMaxLength(500);
+
+            builder.Property(c => c.IsActive)
+                   .HasColumnType("bit")
+                   .HasColumnName("IsActive")
+                   .HasDefaultValue(true);
+
+            builder.Property(c => c.ParentId)
+                   .HasColumnType("int")
+                   .HasColumnName("ParentId");
+
         }
     }
 }

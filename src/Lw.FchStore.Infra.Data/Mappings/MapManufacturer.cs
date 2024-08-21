@@ -15,10 +15,27 @@ namespace Lw.FchStore.Infra.Data.Mappings
         {
             builder.ToTable("Manufacturer");
 
-            builder.Property(c => c.ManufacturerId).HasColumnType("int").HasColumnName("ManufacturerId").IsRequired();
-            builder.Property(c => c.Name).HasColumnType("varchar(500)").HasColumnName("Name");
-            builder.Property(c => c.IsActive).HasColumnType("bit").HasColumnName("IsActive");
-            builder.Property(c => c.CreatedAt).HasColumnType("datetime").HasColumnName("CreatedAt");
+            builder.Property(m => m.ManufacturerId)
+                   .HasColumnType("int")
+                   .HasColumnName("ManufacturerId")
+                   .IsRequired();
+
+            builder.Property(m => m.Name)
+                   .HasColumnType("varchar(500)")
+                   .HasColumnName("Name")
+                   .IsRequired() 
+                   .HasMaxLength(500);
+
+            builder.Property(m => m.IsActive)
+                   .HasColumnType("bit")
+                   .HasColumnName("IsActive")
+                   .HasDefaultValue(1)
+                   .IsRequired();
+
+            builder.Property(m => m.CreatedAt)
+                   .HasColumnType("datetime")
+                   .HasColumnName("CreatedAt")
+        ;
         }
     }
 }

@@ -58,7 +58,7 @@ namespace Lw.FchStore.Api.Panel.Controllers
         }
 
         // GET api/<OrderController>/5
-        [HttpGet("{clientId}")]
+        [HttpGet("client/{clientId}")]
         public async Task<IActionResult> GetByClientId(int clientId)
         {
 
@@ -69,13 +69,13 @@ namespace Lw.FchStore.Api.Panel.Controllers
         }
 
         // PUT api/<OrderController>/5
-        [HttpPut("{id}")]
+        [HttpPut("ready-to-ship/{id}")]
         public async Task<IActionResult> PutReadyToShip(int orderId)
         {
 
             var order = await _services.GetById(orderId);
 
-            order.Status = (OrderStatus)4; // ready do ship
+            order.Status = (OrderStatus)4; // ready to ship
 
             await _services.Update(order);
 
@@ -94,7 +94,7 @@ namespace Lw.FchStore.Api.Panel.Controllers
         }
 
         // PUT api/<OrderController>/5
-        [HttpPut("{id}")]
+        [HttpPut("shipped/{id}")]
         public async Task<IActionResult> PutShipped(int orderId)
         {
 
@@ -119,7 +119,7 @@ namespace Lw.FchStore.Api.Panel.Controllers
         }
 
         // PUT api/<OrderController>/5
-        [HttpPut("{id}")]
+        [HttpPut("completed/{id}")]
         public async Task<IActionResult> PutCompleted(int orderId)
         {
 
@@ -144,7 +144,7 @@ namespace Lw.FchStore.Api.Panel.Controllers
         }
 
         // PUT api/<OrderController>/5
-        [HttpPut("{id}")]
+        [HttpPut("canceled/{id}")]
         public async Task<IActionResult> PutCanceled(int orderId)
         {
 

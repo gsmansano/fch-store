@@ -15,16 +15,58 @@ namespace Lw.FchStore.Infra.Data.Mappings
         {
             builder.ToTable("Supplier");
 
-            builder.Property(c => c.SupplierId).HasColumnType("int").HasColumnName("SupplierId").IsRequired();
-            builder.Property(c => c.Name).HasColumnType("varchar(500)").HasColumnName("Name");
-            builder.Property(c => c.FullAddress).HasColumnType("varchar(500)").HasColumnName("FullAddress");
-            builder.Property(c => c.ZipCode).HasColumnType("varchar(500)").HasColumnName("ZipCode");
-            builder.Property(c => c.ContactName).HasColumnType("varchar(500)").HasColumnName("ContactName");
-            builder.Property(c => c.EmailAddress).HasColumnType("varchar(500)").HasColumnName("EmailAddress");
-            builder.Property(c => c.PhoneNumber).HasColumnType("int").HasColumnName("PhoneNumber");
-            builder.Property(c => c.VatNumber).HasColumnType("varchar(50)").HasColumnName("VatNumber");
-            builder.Property(c => c.IsActive).HasColumnType("bit").HasColumnName("IsActive");
-            builder.Property(c => c.CreatedAt).HasColumnType("datetime").HasColumnName("CreatedAt");
+            builder.HasKey(s => s.SupplierId);
+
+            builder.Property(s => s.SupplierId)
+                   .HasColumnType("int")
+                   .HasColumnName("SupplierId")
+                   .IsRequired();
+
+            builder.Property(s => s.Name)
+                   .HasColumnType("varchar(500)")
+                   .HasColumnName("Name")
+                   .IsRequired()
+                   .HasMaxLength(500);
+
+            builder.Property(s => s.FullAddress)
+                   .HasColumnType("varchar(500)")
+                   .HasColumnName("FullAddress")
+                   .HasMaxLength(500);
+
+            builder.Property(s => s.ZipCode)
+                   .HasColumnType("varchar(500)")
+                   .HasColumnName("ZipCode")
+                   .HasMaxLength(500);
+
+            builder.Property(s => s.ContactName)
+                   .HasColumnType("varchar(500)")
+                   .HasColumnName("ContactName")
+                   .HasMaxLength(500);
+
+            builder.Property(s => s.EmailAddress)
+                   .HasColumnType("varchar(500)")
+                   .HasColumnName("EmailAddress")
+                   .HasMaxLength(500);
+
+            builder.Property(s => s.PhoneNumber)
+                   .HasColumnType("varchar(20)")
+                   .HasColumnName("PhoneNumber")
+                   .HasMaxLength(20);
+
+            builder.Property(s => s.VatNumber)
+                   .HasColumnType("varchar(50)")
+                   .HasColumnName("VatNumber")
+                   .HasMaxLength(50);
+
+            builder.Property(s => s.IsActive)
+                   .HasColumnType("bit")
+                   .HasColumnName("IsActive")
+                   .HasDefaultValue(true);
+
+            builder.Property(s => s.CreatedAt)
+                   .HasColumnType("datetime")
+                   .HasColumnName("CreatedAt")
+                   .HasDefaultValueSql("GETDATE()");
         }
     }
 }

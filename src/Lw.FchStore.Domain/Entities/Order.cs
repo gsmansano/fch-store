@@ -12,7 +12,6 @@ namespace Lw.FchStore.Domain.Entities
         public int? ClientAddressId { get; set; }
         public int? PaymentId { get; set; }
         public DateTime CreatedAt { get; set; }
-
         public virtual Client Client { get; set; }
         public virtual ClientAddress Address { get; set; }
         public virtual ICollection<OrderItem> Items { get;}

@@ -19,11 +19,16 @@ public class ManufacturerAppServices: AppServices<Manufacturer>, IManufacturerAp
 
     public async Task<Manufacturer> Add(string name)
     {
+
         var manufacturer = new Manufacturer()
         {
             Name = name,
+            CreatedAt = DateTime.UtcNow,
             IsActive = true
+
         };
+
+
 
         return await _repository.Add(manufacturer);
     }

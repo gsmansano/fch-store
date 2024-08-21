@@ -52,7 +52,6 @@ namespace Lw.FchStore.Api.Store.Controllers
                 order.TotalValue,
                 order.ClientAddressId,
                 order.PaymentId,
-                order.IsActive,
                 order.CreatedAt,
                 Client = new
                 {
@@ -86,7 +85,7 @@ namespace Lw.FchStore.Api.Store.Controllers
 
             var data = await _services.Add(new Order()
             {
-                Status = OrderStatus.Open,
+                Status = OrderStatus.OPEN,
                 TotalValue = 0,
 
             });

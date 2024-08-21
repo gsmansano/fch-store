@@ -41,6 +41,7 @@ namespace Lw.FchStore.Api.Panel.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] AddManufacturerRequest value)
         {
+
             var data = await _services.Add(value.Name);
 
             return Ok(data);
