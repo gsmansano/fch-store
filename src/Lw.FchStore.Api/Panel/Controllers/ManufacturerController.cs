@@ -3,6 +3,7 @@ using Lw.FchStore.Domain.Entities;
 using Lw.FchStore.Domain.Interfaces.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Lw.FchStore.Api.Panel.Controllers
@@ -51,7 +52,17 @@ namespace Lw.FchStore.Api.Panel.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(int id, [FromBody] EditManufacturerRequest value)
         {
-            await _services.Update(new() { ManufacturerId = id, Name = value.Name, IsActive = value.IsActive });
+            var existing = await _services.GetById(id);
+
+            if (existing == null)
+            {
+                return NotFound("Manufacturer not found.");
+            }
+
+            existing.Name = value.Name;
+            existing.IsActive = value.IsActive;
+
+            await _services.Update(existing);
 
             return Accepted();
         }

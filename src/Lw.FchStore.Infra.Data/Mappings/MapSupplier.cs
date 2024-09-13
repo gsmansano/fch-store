@@ -66,7 +66,7 @@ namespace Lw.FchStore.Infra.Data.Mappings
             builder.Property(s => s.CreatedAt)
                    .HasColumnType("datetime")
                    .HasColumnName("CreatedAt")
-                   .HasDefaultValueSql("GETDATE()");
+                   ;
         }
     }
 }

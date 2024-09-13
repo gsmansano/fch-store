@@ -6,6 +6,7 @@ using Lw.FchStore.Domain.Interfaces.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 
 namespace Lw.FchStore.Api.Panel.Controllers
 {
@@ -43,16 +44,43 @@ namespace Lw.FchStore.Api.Panel.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] AddSupplierRequest request)
         {
-            var data = await _services.Add(new Supplier() { Name = request.Name, IsActive = true });
+            var data = await _services.Add(new Supplier() { 
+                Name = request.Name,
+                FullAddress = request.FullAddress,
+                ZipCode = request.ZipCode,
+                ContactName = request.ContactName,
+                PhoneNumber = request.PhoneNumber,
+                EmailAddress = request.EmailAddress,
+                VatNumber = request.VatNumber,
+                IsActive = true,
+                CreatedAt = DateTime.UtcNow,              
+            
+            });
 
             return Ok(data);
         }
 
         // PUT api/<SupplierController>/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, [FromBody] EditSupplierRequest request)
+        public async Task<IActionResult> Put(int id, [FromBody] EditSupplierRequest value)
         {
-            await _services.Update(new() { SupplierId = id, Name = request.Name, IsActive = request.IsActive });
+            var existing = await _services.GetById(id);
+
+            if (existing == null)
+            {
+                return NotFound("Supplier not found.");
+            }
+
+            existing.Name = value.Name;
+            existing.FullAddress = value.FullAddress;
+            existing.ZipCode = value.ZipCode;
+            existing.ContactName = value.ContactName;
+            existing.PhoneNumber = value.PhoneNumber;
+            existing.EmailAddress = value.EmailAddress;
+            existing.VatNumber = value.VatNumber;
+            existing.IsActive = value.IsActive;
+
+            await _services.Update(existing);
 
             return Accepted();
         }
