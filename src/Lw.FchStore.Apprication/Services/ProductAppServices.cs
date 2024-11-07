@@ -30,9 +30,7 @@ public class ProductAppServices : AppServices<Product>, IProductAppServices
         _unitRepository = unitRepository;
     }
 
-
     public async Task<Product> AddProduct(
-
         int categoryId,
         int supplierId,
         int manufacturerId,
@@ -59,6 +57,47 @@ public class ProductAppServices : AppServices<Product>, IProductAppServices
         return await _repository.Add(product);
     }
 
+    // this is create the list of products with info on supp, manuf, unit and cat
+    public async Task<List<ProductListDto>> GetProductList(int pageNumber, int pageSize)
+    {
+        var products = await _repository.GetAll();
+
+        var paginatedProducts = products
+            .Skip((pageNumber - 1) * pageSize)
+            .Take(pageSize)
+            .ToList();
+
+        var productDtos = new List<ProductListDto>();
+
+        foreach (var product in paginatedProducts)
+        {
+            var category = await _categoryRepository.GetById(product.CategoryId);
+            var supplier = await _supplierRepository.GetById(product.SupplierId);
+            var manufacturer = await _manufacturerRepository.GetById(product.ManufacturerId);
+            var unit = await _unitRepository.GetById(product.UnitId);
+
+            var productDto = new ProductListDto
+            {
+                ProductId = product.ProductId,
+                Name = product.Name,
+                Description = product.Description,
+                CostPrice = product.CostPrice,
+                SalePrice = product.SalePrice,
+                CategoryName = category?.Name ?? "Unknown",
+                SupplierName = supplier?.Name ?? "Unknown",
+                ManufacturerName = manufacturer?.Name ?? "Unknown",
+                UnitName = unit?.Name ?? "Unknown",
+                IsActive = product.IsActive,
+                CreatedAt = product.CreatedAt
+            };
+
+            productDtos.Add(productDto);
+        }
+
+        return productDtos;
+    }
+
+    // this will get details of a single product for edit page
     public async Task<ProductDetailsDto> GetProductDetailsById(int productId)
     {
         var product = await _repository.GetById(productId);

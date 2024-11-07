@@ -24,7 +24,7 @@ namespace Lw.FchStore.Api.Panel.Controllers
         [HttpGet]
         public async Task<IActionResult> Get([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 20)
         {
-            var data = await _services.GetAll();
+            var data = await _services.GetProductList(pageNumber, pageSize);
 
             var totalItems = data.Count();
 
